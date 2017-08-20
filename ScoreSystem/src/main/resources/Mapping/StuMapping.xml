@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.StuDao">
+    <resultMap id="StuResultMap" type="com.fs.po.Stu">
+        <id property="id" column="s_id"/>
+        <result property="name" column="s_name"/>
+        <result property="sex" column="sex"/>
+        <result property="num" column="num"/>
+        <result property="pwd" column="pwd"/>
+        <association property="tclass" javaType="com.fs.po.Tclass">
+            <id property="id" column="t_id"/>
+            <result property="name" column="t_name"/>
+            <result property="major" column="major"/>
+        </association>
+    </resultMap>
+    <select id="selectPwdByNum" resultType="java.lang.String" parameterType="java.lang.String">
+        select pwd from stu where num=#{num}
+    </select>
+    <update id="resetPwd" parameterType="java.lang.String">
+        update  stu set pwd=123456 where num=#{num}
+    </update>
+    <update id="modifyPwd">
+        update  stu set pwd=#{pwd} where num=#{num}
+    </update>
+    <select id="selectAllStu" resultMap="StuResultMap">
+        select s.id as s_id,s.name as s_name,sex,num,pwd,t.id as t_id,t.name as t_name,major from stu as s,tclass as t where s.tclass_id=t.id
+        <if test="tclass_id!=null">and s.tclass_id=#{tclass_id}</if>
+        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and s.name like concat('%',#{name},'%') </if>
+        limit #{firstIndex},#{pageSize}
+    </select>
+    <delete id="deleteOne" parameterType="int">
+        delete from stu where id=#{id}
+    </delete>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from stu where id in(
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <update id="updateStu">
+        update stu set name=#{name},sex=#{sex},num=#{num},pwd=#{pwd},tclass_id=#{tclass_id} where id=#{id}
+    </update>
+    <insert id="insertStu" useGeneratedKeys="true" keyProperty="id">
+        insert into stu (name,sex,num,pwd,tclass_id) values (#{name},#{sex},#{num},#{pwd},#{tclass_id})
+    </insert>
+    <select id="allStuCount" resultType="java.lang.Integer">
+        select count(id) from stu where 1=1
+        <if test="tclass_id!=null">and tclass_id=#{tclass_id}</if>
+        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name like concat('%',#{name},'%') </if>
+    </select>
+    <select id="selectStuByNum" resultType="com.fs.po.Stu">
+        select * from stu where num=#{num}
+    </select>
+</mapper>

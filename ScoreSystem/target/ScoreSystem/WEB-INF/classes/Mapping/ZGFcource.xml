@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.ZGFCourceDao">  
+	<select id="selsectallcource"  resultType="com.fs.po.ZGFCource">
+	   select distinct  name,id,tclass_id,teacher_id from cource
+	</select>
+	
+	<select id="seleceteacherBycource"  resultType="com.fs.po.ZGFTeacher">
+		select teacher.id,teacher.name from cource,teacher 
+		where teacher.id=cource.teacher_id and cource.name=#{name}
+	</select>
+	
+	<select id="selectDateBycourceAndteacher"  resultType="com.fs.po.ZGFCource">
+		select cource.date from cource,teacher where teacher.id=cource.teacher_id 
+		and cource.name=#{name1} and teacher.name=#{name2}
+	</select>
+	
+	<select id="selectCourceID" resultType="java.lang.Integer">
+		select cource.id from cource,teacher where teacher.id=cource.teacher_id 
+		and cource.name=#{name3} and teacher.name=#{name4} and cource.date=#{date}
+	</select>
+	
+	
+	
+	<!-- 根据courseid查询班级id -->
+	<select id="selectTclassid" resultType="java.lang.Integer">
+		select cource.tclass_id from cource where cource.id=#{id}
+	</select>
+	<!-- 查询当前班级学生数量 -->
+	<select id="CountStudent" resultType="java.lang.Integer">
+		select count(tclass_id) from stu where stu.tclass_id=#{id}
+	</select>
+</mapper>

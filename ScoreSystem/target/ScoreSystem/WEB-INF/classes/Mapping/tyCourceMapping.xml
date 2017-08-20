@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.tyCourceDao">
+	<select id="selectAllCource" resultType="com.fs.po.tyCource">
+		select* from cource limit #{firstIndex5}, #{pageSize5}
+	</select>
+	<select id="countSize5" resultType="java.lang.Integer">
+		select count(id) as num4 from cource
+	</select>
+	<delete id="deleteCourceById">
+		delete from cource where id =#{id}
+	</delete>	
+	<insert id="insertCource">
+		insert into cource (name,tclass_id,teacher_id,date) values (#{name},#{tclass_id},#{teacher_id},#{date})		
+	</insert>
+	<update id="updateCource">
+		update cource set name=#{name},tclass_id=#{tclass_id},teacher_id=#{teacher_id},date=#{date} where id=#{id}
+	</update>
+	<delete id="deleteBatch5" parameterType="java.util.List">
+        delete from cource where id in(
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>  
+    <select id="selectCource" resultType="com.fs.po.tyCource">
+        select* from cource where 1=1
+
+        <if test="id!=0">and id=#{id}</if>
+        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
+
+ like concat('%',#{name},'%') </if>
+        
+    </select>
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.JYH_Teacherdao">
+ 
+   <select id="showCource" resultType="com.fs.po.JYH_Cource">
+       select id, name as cource_name from cource;
+   </select>
+   <select id="showTeacher" resultType="com.fs.po.JYH_Teacher">
+       select teacher.id,teacher.name from teacher,cource where teacher.id = cource.teacher_id and cource.name=#{name} 
+   </select>
+   <select id="showDate" resultType="com.fs.po.JYH_Cource">
+       select  date from cource,teacher where cource.teacher_id=teacher.id and cource.name=#{name1} and teacher.name=#{name2}
+   </select>
+   <update id="updateCource">
+      update mid_data set teacher_name=#{teacher_name},cource_name=#{cource_name},cource_date=#{cource_date} where id=1;
+   </update>
+</mapper>

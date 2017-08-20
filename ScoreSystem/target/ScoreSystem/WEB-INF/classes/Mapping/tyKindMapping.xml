@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.tyKindDao">
+	<select id="selectAllKind" resultType="com.fs.po.tyKind">
+		select id, name from kind limit #{firstIndex2}, #{pageSize2}
+	</select>
+	<select id="countSize2" resultType="java.lang.Integer">
+		select count(id) as num2 from kind
+	</select>
+	<delete id="deleteKindById">
+		delete from kind where id=#{id}
+	</delete>	
+	<insert id="insertKind">
+		insert into kind (name) values (#{name})		
+	</insert>
+	<update id="updateKind">
+		update kind set name=#{name} where id=#{id}
+	</update>
+	<delete id="deleteBatch" parameterType="java.util.List">
+        delete from kind where id in(
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    
+    <select id="selectKind" resultType="com.fs.po.tyKind">
+        select id,name from kind where 1=1
+        <if test="id!=0">and id=#{id}</if>
+        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
+
+ like concat('%',#{name},'%')  </if>
+        
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

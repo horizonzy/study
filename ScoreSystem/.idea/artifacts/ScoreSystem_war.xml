@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ScoreSystem:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ScoreSystem.war">
+      <element id="artifact" artifact-name="ScoreSystem:war exploded" />
+    </root>
+  </artifact>
+</component>

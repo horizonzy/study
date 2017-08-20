@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.CourceDao">
+ 
+<select id="selectCource" resultType="com.fs.po.cq_Cource">
+	select id,name, tclass_id from cource 
+</select>
+
+<select id="selectAllTeacher" resultType="com.fs.po.cq_Teacher">
+	select teacher.name ,teacher.id,teacher.process from teacher,cource where teacher.id=cource.teacher_id 
+	and cource.name=#{name} 
+</select>
+<select id="selectdate" resultType="com.fs.po.cq_Cource">
+select date from cource ,teacher where cource.teacher_id=teacher.id and cource.name=#{name1} 
+and teacher.name=#{name2}
+</select>
+<select id="selectId" resultType="java.lang.Integer">
+select cource.id from cource,teacher where cource.teacher_id=teacher.id and cource.name=#{courcename2} 
+and teacher.name=#{teachername2} and date=#{date2}
+</select>
+<select id="selectstu" resultType="java.lang.Integer">
+select count(id) from stu where tclass_id=(select tclass_id from cource,teacher 
+ where teacher.name=#{teachername} and date=#{time} and cource.name=#{courcename})
+</select>
+</mapper>

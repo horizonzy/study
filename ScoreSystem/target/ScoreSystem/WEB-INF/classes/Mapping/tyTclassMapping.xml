@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.tyTclassDao">
+	<select id="selectAllTclass" resultType="com.fs.po.tyTclass">
+		select* from tclass limit #{firstIndex4}, #{pageSize4}
+	</select>
+	<select id="countSize4" resultType="java.lang.Integer">
+		select count(id) as num4 from tclass
+	</select>
+	<delete id="deleteTclassById">
+		delete from tclass where id=#{id}
+	</delete>	
+	<insert id="insertTclass">
+		insert into tclass (name,major) values (#{name},#{major})		
+	</insert>
+	<update id="updateTclass">
+		update tclass set name=#{name},major=#{major} where id=#{id}
+	</update>
+	<delete id="deleteBatch4" parameterType="java.util.List">
+        delete from tclass where id in(
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    
+    <select id="selectTclass" resultType="com.fs.po.tyTclass">
+        select* from tclass where 1=1 
+
+        <if test="id!=0">and id=#{id}</if>
+        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
+
+ like concat('%',#{name},'%') </if>
+        
+    </select>	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

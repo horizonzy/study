@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.AdviceDao">
+ 
+	<select id="selectAllAdvice" resultType="com.fs.po.cq_Advice">
+	select teacher_feedback.summary from teacher_feedback,cource where teacher_feedback.cource_id=cource.id and cource.name=#{name}
+	</select>
+	<select id="selectAdvice" resultType="com.fs.po.cq_Advice">
+	select teacher_feedback.advice from teacher_feedback,cource where teacher_feedback.cource_id=cource.id and cource.name=#{courcename}
+	</select>
+	<insert id="insertAdvice">
+	insert into teacher_feedback(summary, advice,cource_id) values(#{summary}, #{advice},#{cource_id})
+	</insert>
+</mapper>
