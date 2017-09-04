@@ -16,8 +16,8 @@ public class cq_CourceController {
 	private cq_CourceServiceSupport courceservicesupport;
 	@RequestMapping("/getAllCourceMessage.do")
 	@ResponseBody
-	public List<cq_Cource> getAllCourceMessage(){
-		List<cq_Cource> list=courceservicesupport.getAllCource();
+	public List<cq_Cource> getAllCourceMessage(int tclass_id){
+		List<cq_Cource> list=courceservicesupport.getAllCource(tclass_id);
 		return list;
 }	
 	@RequestMapping("/getAllTeacherMessage.do")

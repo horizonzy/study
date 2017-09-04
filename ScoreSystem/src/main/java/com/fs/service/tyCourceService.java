@@ -62,11 +62,6 @@ private tyCourceDao courceDao;
         return n > 0 ? true : false;
     }
 
-	@Override
-	public List<tyCource> selectCource(int id, String name) {
-		 List<tyCource>  list =courceDao.selectCource(id, name);
-	     return list;
 
-	}
 
 }

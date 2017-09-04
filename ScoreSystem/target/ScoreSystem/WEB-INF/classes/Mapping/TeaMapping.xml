@@ -5,4 +5,10 @@
    <select id="selectTeaByNum" resultType="com.fs.po.Tea" parameterType="java.lang.String">
        select * from teacher where num=#{num}
    </select>
+    <select id="selectIdByName" resultType="java.lang.Integer">
+        select id from teacher where name = #{name}
+    </select>
+    <select id="selectTeacherByProcess" resultType="com.fs.po.Tea">
+        select * from teacher where process = #{process};
+    </select>
 </mapper>

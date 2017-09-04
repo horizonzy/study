@@ -6,6 +6,7 @@ public class Tclass {
     private int id;
     private String name;
     private String major;
+    private String t_name;
     private List<Stu> stuList;
 
     @Override
@@ -14,18 +15,20 @@ public class Tclass {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", major='" + major + '\'' +
+                ", t_name='" + t_name + '\'' +
                 ", stuList=" + stuList +
                 '}';
     }
 
-    public Tclass(int id, String name, String major, List<Stu> stuList) {
+    public Tclass() {
+    }
+
+    public Tclass(int id, String name, String major, String t_name, List<Stu> stuList) {
         this.id = id;
         this.name = name;
         this.major = major;
+        this.t_name = t_name;
         this.stuList = stuList;
-    }
-
-    public Tclass() {
     }
 
     public int getId() {
@@ -50,6 +53,14 @@ public class Tclass {
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public String getT_name() {
+        return t_name;
+    }
+
+    public void setT_name(String t_name) {
+        this.t_name = t_name;
     }
 
     public List<Stu> getStuList() {

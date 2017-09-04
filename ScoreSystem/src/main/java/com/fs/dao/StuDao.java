@@ -10,11 +10,12 @@ public interface StuDao {
     int resetPwd(String num);
     Stu selectStuByNum(String num);
     int modifyPwd(@Param("num") String num, @Param("pwd") String pwd);
-    List<Stu> selectAllStu(@Param("tclass_id") Integer tclass_id, @Param("name") String name, @Param("firstIndex") int firstIndex, @Param("pageSize") int pageSize);
+    List<Stu> selectAllStuByTclassid(@Param("tclass_id") Integer tclass_id, @Param("firstIndex") int firstIndex, @Param("pageSize") int pageSize);
     int deleteOne(int id);
     int deleteBatch(List<Integer> list);
     int updateStu(@Param("id") int id, @Param("name") String name, @Param("sex") String sex, @Param("num") String num, @Param("pwd") String pwd, @Param("tclass_id") int tclass_id);
     int insertStu(@Param("name") String name, @Param("sex") String sex, @Param("num") String num, @Param("pwd") String pwd, @Param("tclass_id") int tclass_id);
-    int allStuCount(@Param("tclass_id") Integer tclass_id, @Param("name") String name);
+    int allStuCount(@Param("tclass_id") Integer tclass_id);
+    int selectTclassIdById(int id);
 
 }

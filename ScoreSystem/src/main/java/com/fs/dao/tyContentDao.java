@@ -12,5 +12,6 @@ public interface tyContentDao {
 	public int insertContent(tyContent contnet);
 	public int updateContent(tyContent content);
 	public int deleteBatch2(List<Integer> list);
-	public List<tyContent> selectContent(@Param("id") int id, @Param("name") String name);
+	public int selectContentIdByName(String name);
+
 }

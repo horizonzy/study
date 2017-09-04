@@ -19,9 +19,9 @@ public class lx_CourceController {
 	private lx_CourceServiceSupport conrceService;
     @RequestMapping(value="/showAllCource.do")
     @ResponseBody
-    public List<lx_Cource> showAllCource(){
+    public List<lx_Cource> showAllCource(int tclass_id){
     	try {
-			List<lx_Cource> list=conrceService.getAllCource();
+			List<lx_Cource> list=conrceService.getAllCource(tclass_id);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();

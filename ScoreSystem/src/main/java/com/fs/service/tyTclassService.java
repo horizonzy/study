@@ -63,10 +63,10 @@ private tyTclassDao tclassDao;
     }
 
 	@Override
-	public List<tyTclass> selectTclass(int id, String name) {
-		 List<tyTclass>  list =tclassDao.selectTclass(id, name);
-	     return list;
-
+	public int getTclassIdByName(String name) {
+		int id = tclassDao.selectTclassIdByName(name);
+		return id;
 	}
+
 
 }

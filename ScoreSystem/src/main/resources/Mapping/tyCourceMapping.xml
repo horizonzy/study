@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.dao.tyCourceDao">
+
 	<select id="selectAllCource" resultType="com.fs.po.tyCource">
-		select* from cource limit #{firstIndex5}, #{pageSize5}
+		select c.date ,c.tclass_id,c.id,c.teacher_id,c.name,t.name as t_name,tc.name as tc_name
+		from cource as c,teacher as t,tclass as tc
+		where c.teacher_id = t.id and tc.id = c.tclass_id
+		 limit #{firstIndex5}, #{pageSize5}
 	</select>
 	<select id="countSize5" resultType="java.lang.Integer">
 		select count(id) as num4 from cource
@@ -24,15 +28,7 @@
         </foreach>
         )
     </delete>  
-    <select id="selectCource" resultType="com.fs.po.tyCource">
-        select* from cource where 1=1
 
-        <if test="id!=0">and id=#{id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
-
- like concat('%',#{name},'%') </if>
-        
-    </select>
 
 	
 </mapper>

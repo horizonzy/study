@@ -24,16 +24,11 @@
         </foreach>
         )
     </delete>
+	<select id="selectTclassIdByName" resultType="java.lang.Integer">
+		select id from tclass where name = #{name}
+	</select>
     
-    <select id="selectTclass" resultType="com.fs.po.tyTclass">
-        select* from tclass where 1=1 
 
-        <if test="id!=0">and id=#{id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
-
- like concat('%',#{name},'%') </if>
-        
-    </select>	
 </mapper>
 
 

@@ -3,7 +3,7 @@
 			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.dao.ZGFCourceDao">  
 	<select id="selsectallcource"  resultType="com.fs.po.ZGFCource">
-	   select distinct  name,id,tclass_id,teacher_id from cource
+	   select distinct  name,id,tclass_id,teacher_id from cource where tclass_id = #{tclass_id}
 	</select>
 	
 	<select id="seleceteacherBycource"  resultType="com.fs.po.ZGFTeacher">

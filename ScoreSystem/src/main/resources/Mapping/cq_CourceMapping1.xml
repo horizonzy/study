@@ -4,7 +4,7 @@
 <mapper namespace="com.fs.dao.CourceDao">
  
 <select id="selectCource" resultType="com.fs.po.cq_Cource">
-	select id,name, tclass_id from cource 
+	select id,name, tclass_id from cource where tclass_id = #{tclass_id}
 </select>
 
 <select id="selectAllTeacher" resultType="com.fs.po.cq_Teacher">

@@ -1,6 +1,7 @@
 package com.fs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,23 @@ public class JYH_StuService implements JYH_StuServiceSupport {
 
 
 	@Override
-	public boolean addGrade(int grade, int content_id, int cource_id,int stu_id) {
-		int num = studao.insertGrade(grade,content_id,cource_id,stu_id);
+	public boolean addGrade(Map<String,List> map) {
+		List<Integer> gradeList=map.get("grade");
+		List<Integer> contentList=map.get("content");
+		List<Integer> courceList=map.get("cource");
+		List<Integer> stuList=map.get("stu");
+		int num = 0;
+		for (int i = 0; i < gradeList.size(); i++) {
+		  int n = studao.insertGrade(gradeList.get(i),contentList.get(i),courceList.get(i),stuList.get(i));
+		  num+=n;
+		}
 		return num>0 ? true : false;
 	}
 
 
 	@Override
-	public List<JYH_Mid_Date> selectCource(int id) {
-		List<JYH_Mid_Date> list = studao.showCourse(id);
+	public List<JYH_Mid_Date> selectCource(int tclass_id) {
+		List<JYH_Mid_Date> list = studao.showCourse(tclass_id);
 		return list;
 	}
 

@@ -16,9 +16,9 @@ public class ZGFSelectAllCourceService implements ZGFSelectAllCourceServiceSuppo
 	private ZGFCourceDao courcedao;
 
 	@Override
-	public List<ZGFCource> selsectallcourceService(){
+	public List<ZGFCource> selsectallcourceService(int tclass_id){
 		 
-		 List<ZGFCource> list=courcedao.selsectallcource();
+		 List<ZGFCource> list=courcedao.selsectallcource(tclass_id);
 		 for(int i=0;i<list.size();i++){
 			 ZGFCource cource = list.get(i);
 			 String s = cource.getName();

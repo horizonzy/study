@@ -11,5 +11,6 @@ public interface tyContentServiceSupport {
 	public boolean save2(tyContent content);
 	public boolean updateContent(tyContent content);
 	public boolean deleteBatch2(List<Integer> list);
-	public List<tyContent> selectContent(int id, String name);
+	public int  getContentIdByName(String name);
+
 }

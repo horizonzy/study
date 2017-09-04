@@ -12,7 +12,7 @@ function showCource(){
 		url:"getAllCourceMessage.do",
 		dataType:"json",
 		data:{
-			
+			"tclass_id":tclass_id
 		},
 		success:function(courceList){
 			var cource;

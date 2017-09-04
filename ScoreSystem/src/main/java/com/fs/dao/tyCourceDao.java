@@ -12,5 +12,5 @@ public interface tyCourceDao {
 	public int insertCource(tyCource cource);
 	public int updateCource(tyCource cource);
 	public int deleteBatch5(List<Integer> list);
-	public List<tyCource> selectCource(@Param("id") int id, @Param("name") String name);
+
 }

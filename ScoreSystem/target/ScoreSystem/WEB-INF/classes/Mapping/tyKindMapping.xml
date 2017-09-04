@@ -3,7 +3,7 @@
 			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.dao.tyKindDao">
 	<select id="selectAllKind" resultType="com.fs.po.tyKind">
-		select id, name from kind limit #{firstIndex2}, #{pageSize2}
+		select id, name,nick_name from kind limit #{firstIndex2}, #{pageSize2}
 	</select>
 	<select id="countSize2" resultType="java.lang.Integer">
 		select count(id) as num2 from kind
@@ -12,10 +12,10 @@
 		delete from kind where id=#{id}
 	</delete>	
 	<insert id="insertKind">
-		insert into kind (name) values (#{name})		
+		insert into kind (name,nick_name) values (#{name},#{nick_name})
 	</insert>
 	<update id="updateKind">
-		update kind set name=#{name} where id=#{id}
+		update kind set name=#{name},nick_name=#{nick_name} where id=#{id}
 	</update>
 	<delete id="deleteBatch" parameterType="java.util.List">
         delete from kind where id in(
@@ -25,14 +25,14 @@
         )
     </delete>
     
-    <select id="selectKind" resultType="com.fs.po.tyKind">
-        select id,name from kind where 1=1
-        <if test="id!=0">and id=#{id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
+	<select id="getKindIdByNickName" resultType="java.lang.Integer">
+		select id from kind where nick_name=#{nick_name}
+	</select>
 
- like concat('%',#{name},'%')  </if>
-        
-    </select>
+	<select id="selectAllNickName" resultType="java.lang.String">
+		select nick_name from kind
+	</select>
+
 
 </mapper>
 

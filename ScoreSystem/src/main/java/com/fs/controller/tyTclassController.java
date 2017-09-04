@@ -115,10 +115,5 @@ public class tyTclassController {
             return PublicDate.ERROR;
         }
     }
-	@RequestMapping("/showTclass.do ")
-    @ResponseBody
-    public List<tyTclass> showTclass(int id, String name) {
-		List<tyTclass> list = tclassService.selectTclass(id, name);
-		return list;
-	}
+
 }

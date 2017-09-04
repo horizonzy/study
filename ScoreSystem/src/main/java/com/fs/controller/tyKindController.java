@@ -61,10 +61,10 @@ public class tyKindController {
 	}
 	@RequestMapping("/saveKind.do")
 	@ResponseBody
-	public String saveKind(String name) {
+	public String saveKind(String name,String nick_name) {
 		boolean b = false;
 		try {
-			b = kindService.save(name);
+			b = kindService.save(name,nick_name);
 			return b ? PublicDate.SUCCESS : PublicDate.ERROR;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class tyKindController {
 	}
 	@RequestMapping("/updateMyKind.do")
 	@ResponseBody
-	public String updateMyKind(int id, String name) {
+	public String updateMyKind(int id, String name,String nick_name) {
 		if(name.trim().length()==0) {
 			return "nameIsNull";
 		}
@@ -81,7 +81,7 @@ public class tyKindController {
 			tyKind kind = new tyKind();
 			kind.setId(id);
 			kind.setName(name);
-			
+			kind.setNick_name(nick_name);
 			boolean b = kindService.updateKind(kind);
 			return b ? PublicDate.SUCCESS : PublicDate.ERROR;
 		} catch (Exception e) {
@@ -116,10 +116,18 @@ public class tyKindController {
             return PublicDate.ERROR;
         }
     }
-	@RequestMapping("/showKind.do ")
-    @ResponseBody
-    public List<tyKind> showKind(int id, String name) {
-		List<tyKind> kindlist = kindService.selectKind(id, name);
-		return kindlist;
+	@RequestMapping("/allKindNickName.do")
+	@ResponseBody
+	public List<String> allKindNickName(){
+		System.out.println("进入了121211");
+		try {
+			List<String> list = kindService.selectAllNickName();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
+
 }

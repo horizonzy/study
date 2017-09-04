@@ -12,7 +12,9 @@ function showCourceName(){
 		type : "post", 
 		url: "cource/showAllCource.do",
 		dataType : "json",
-		data : {  },
+		data : {
+			"tclass_id":tclass_id
+		},
 		success:function(courceList){
 			var courceInf="";
 			var cource;

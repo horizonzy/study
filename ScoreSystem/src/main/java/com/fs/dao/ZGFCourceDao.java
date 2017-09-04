@@ -9,7 +9,7 @@ import com.fs.po.ZGFTeacher;
 
 public interface ZGFCourceDao {
 	//showAllCource()查询所有课程的名字
-	public List<ZGFCource> selsectallcource();
+	public List<ZGFCource> selsectallcource(int tclass_id);
 	//showtheteacher()通过课程名字，查询上这个课的老师的名字
 	public List<ZGFTeacher> seleceteacherBycource(String name);
 	//缩小范围，通过老师和课程的名字，显示相关的日期范围

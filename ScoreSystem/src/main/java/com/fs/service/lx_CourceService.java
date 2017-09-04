@@ -13,8 +13,8 @@ public class lx_CourceService implements lx_CourceServiceSupport {
     @Autowired
 	private lx_CourceDao lx_CourceDao;
 	@Override
-	public List<lx_Cource> getAllCource() {
-		List<lx_Cource> list=lx_CourceDao.selectAllCource();
+	public List<lx_Cource> getAllCource(int tclasss_id) {
+		List<lx_Cource> list=lx_CourceDao.selectAllCource(tclasss_id);
 		return list;
 	}
 	@Override

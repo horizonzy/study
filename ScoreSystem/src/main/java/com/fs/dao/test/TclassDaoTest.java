@@ -18,7 +18,7 @@ public class TclassDaoTest {
 
     @Test
     public void getAllTclassTest(){
-        List<Tclass> tclassList = dao.selectAllTclass();
+        List<Tclass> tclassList = dao.selectAllTclassByPage(1,5);
         for (Tclass t :
                 tclassList) {
             System.out.println(t);
@@ -29,5 +29,22 @@ public class TclassDaoTest {
     public void selectTclassidByNameTest(){
 
         System.out.println(dao.selectTclassidByName("三"));
+    }
+
+
+    public void allTclassCount(){
+        int n = dao.allTclssCount();
+        System.out.println(n);
+
+    }
+    @Test
+    public void insertTclass(){
+        int n = dao.insertTclass("十班","吃饭",1);
+        System.out.println(n);
+    }
+    @Test
+    public void deleteTclassTest(){
+        int n = dao.deleteTclass(7);
+        System.out.println(n);
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fs.service.tyTclassService;
+import com.fs.service.tyTeacherService;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +28,10 @@ import com.fs.service.tyCourceServiceSupport;
 public class tyCourceController {
 	@Autowired
 	private tyCourceServiceSupport courceService;
+	@Autowired
+	private tyTclassService tyTclassService;
+	@Autowired
+	private tyTeacherService tyTeacherService;
 
 	@RequestMapping("/showAllCource.do")
 	@ResponseBody
@@ -57,8 +63,10 @@ public class tyCourceController {
 	}
 	@RequestMapping("/saveCource.do")
 	@ResponseBody
-	public String saveCource(String name,int tclass_id,int teacher_id,String date) {
+	public String saveCource(String name,String tc_name,String t_name,String date) {
 		boolean b = false;
+		int tclass_id = tyTclassService.getTclassIdByName(tc_name);
+		int teacher_id = tyTeacherService.getTeacherIdByName(t_name);
 		try {
 			tyCource cource=new tyCource();
 			cource.setName(name);
@@ -74,10 +82,12 @@ public class tyCourceController {
 	}
 	@RequestMapping("/updateMyCource.do")
 	@ResponseBody
-	public String updateMyCource(int id, String name,int tclass_id,int teacher_id,String date) {
+	public String updateMyCource(int id, String name,String tc_name,String t_name,String date) {
 		if(name.trim().length()==0) {
 			return "nameIsNull";
 		}
+		int tclass_id = tyTclassService.getTclassIdByName(tc_name);
+		int teacher_id = tyTeacherService.getTeacherIdByName(t_name);
 		try {
 			tyCource cource = new tyCource();
 			cource.setId(id);
@@ -120,10 +130,5 @@ public class tyCourceController {
             return PublicDate.ERROR;
         }
     }
-	@RequestMapping("/showCource.do ")
-    @ResponseBody
-    public List<tyCource> showTclass(int id, String name) {
-		List<tyCource> list = courceService.selectCource(id, name);
-		return list;
-	}
+
 }

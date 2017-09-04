@@ -24,15 +24,9 @@
         </foreach>
         )
     </delete>  
-    <select id="selectTeacher" resultType="com.fs.po.tyTeacher">
-        select* from teacher where 1=1
-
-        <if test="id!=0">and id=#{id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name 
-
- like concat('%',#{name},'%') </if>
-        
-    </select>
+	<select id="selectTeacherIdByName"  resultType="java.lang.Integer">
+		select id from teacher where name = #{name}
+	</select>
 
 	
 </mapper>

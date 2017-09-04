@@ -21,8 +21,8 @@ public List<JYH_Cource> selectdate(String courcename, String teachername) {
 }
 
 @Override
-public List<JYH_Cource> selectcource() {
-	List<JYH_Cource> list = tdao.showCource();
+public List<JYH_Cource> selectcource(int tclass_id) {
+	List<JYH_Cource> list = tdao.showCource(tclass_id);
 	return list;
 }
 

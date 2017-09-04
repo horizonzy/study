@@ -3,7 +3,9 @@ package com.fs.dao.test;
 import com.fs.dao.JYH_Studao;
 import com.fs.dao.StuDao;
 import com.fs.dao.TclassDao;
+import com.fs.dao.ZGFContentDao;
 import com.fs.po.Stu;
+import com.fs.po.ZGFContent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class StuDaoTest {
     private StuDao dao;
     @Autowired
     private TclassDao tclassDao;
+    @Autowired
+    private ZGFContentDao zgfContentDao;
 
     @Autowired
     private JYH_Studao jyhStudao;
@@ -57,8 +61,8 @@ public class StuDaoTest {
 
 
      public void selectAllStuTest(){
-         int tclass_id = tclassDao.selectTclassidByName("一班");
-        List<Stu> stuList = dao.selectAllStu(tclass_id,"",0,5);
+
+        List<Stu> stuList = dao.selectAllStuByTclassid(1,0,5);
         for (Stu s :
                 stuList) {
             System.out.println(s);
@@ -79,7 +83,7 @@ public class StuDaoTest {
     }
 
     public void allStuCountTest(){
-        int num = dao.allStuCount(null,"小");
+        int num = dao.allStuCount(1);
         System.out.println(num);
     }
     @Test
@@ -89,7 +93,10 @@ public class StuDaoTest {
     }
     @Test
     public void aaa(){
-        String a = jyhStudao.selectNumById(1);
-        System.out.println(a);
+        List<Integer> contents = zgfContentDao.selectcountKindname();
+        for (Integer i :
+                contents) {
+            System.out.println(i);
+        }
     }
 }

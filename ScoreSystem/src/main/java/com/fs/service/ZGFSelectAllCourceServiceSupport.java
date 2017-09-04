@@ -8,7 +8,7 @@ import com.fs.po.ZGFCource;
 import com.fs.po.ZGFTeacher;
 
 public interface ZGFSelectAllCourceServiceSupport {
-	public List<ZGFCource> selsectallcourceService();
+	public List<ZGFCource> selsectallcourceService(int tclass_id);
 	
 	public List<ZGFTeacher> seleceteacherBycourceService(String name);
 	

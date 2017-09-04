@@ -4,7 +4,7 @@
 <mapper namespace="com.fs.dao.ZGFContentDao">  
 	<!-- 查询所有项目内容 -->
 	<select id="selectallmycontent" resultType="com.fs.po.ZGFContent">
-		select content.id,content.name from content
+		select content.id,content.name from content order by kind_id
 	</select>
 	
 	
@@ -16,11 +16,10 @@
 			<result property="name" column="name"/>
 		</association>
 	</resultMap>        -->
-	
-	
+
 	<select id="selectcountKindname"  resultType="java.lang.Integer">
-		select count(kind.name) as number 
-		from content inner join kind on kind.id=content.kind_id group by kind.name;
+		select count(id) as number
+		from content group by kind_id;
 	</select>
 	
 	<select id="selectallKind" resultType="com.fs.po.ZGFKind">

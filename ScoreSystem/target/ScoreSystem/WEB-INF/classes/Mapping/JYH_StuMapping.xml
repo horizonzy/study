@@ -7,7 +7,7 @@
 		values(#{grade},#{content_id},#{cource_id},#{stu_id});
 	</insert>
 	<select id="showCourse" resultType="com.fs.po.JYH_Mid_Date">
-		select * from mid_data where id=#{id} ;
+		select * from mid_data where tclass_id=#{tclass_id} ;
 	</select>
 	<select id="showStuName" resultType = "com.fs.po.JYH_Stu">
 	    select name from stu where num=#{num};

@@ -3,7 +3,7 @@
 			 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fs.dao.lx_CourceDao">
 	<select id="selectAllCource" resultType="com.fs.po.lx_Cource">
-		select * from cource
+		select * from cource where tclass_id = #{tclass_id}
 	</select>
 	<select id="seleceteacherBycource" resultType="com.fs.po.lx_Teacher">
 		select teacher.id,teacher.name from cource,teacher where teacher.id=cource.teacher_id and cource.name=#{name}

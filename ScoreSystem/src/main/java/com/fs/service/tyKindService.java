@@ -46,10 +46,10 @@ private tyKindDao kindDao;
 	}
 
 	@Override
-	public boolean save(String name) {
+	public boolean save(String name,String nick_name) {
 		tyKind kind = new tyKind();
 		kind.setName(name);
-
+		kind.setNick_name(nick_name);
 		int r = kindDao.insertKind(kind);
 		return r > 0 ? true : false;
 	}
@@ -66,9 +66,16 @@ private tyKindDao kindDao;
     }
 
 	@Override
-	public List<tyKind> selectKind(int id, String name) {
-		 List<tyKind>  list = kindDao.selectKind(id, name);
-	     return list;
-
+	public int getKindIdByNickName(String nick_name) {
+		int n = kindDao.getKindIdByNickName(nick_name);
+		return n;
 	}
+
+	@Override
+	public List<String> selectAllNickName() {
+		List<String> list = kindDao.selectAllNickName();
+		return list;
+	}
+
+
 }

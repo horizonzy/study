@@ -32,9 +32,9 @@ public class JYH_Teachercontroller {
 
 	@RequestMapping(value = "tea/showCource.do")
 	@ResponseBody
-	public List<JYH_Cource> showCource() {
+	public List<JYH_Cource> showCource(int tclass_id) {
 		try {
-			List<JYH_Cource> list = tservice.selectcource();
+			List<JYH_Cource> list = tservice.selectcource(tclass_id);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,14 +58,14 @@ public class JYH_Teachercontroller {
 
 	@RequestMapping(value = "tea/updateCource.do")
 	@ResponseBody
-	public String updateCource(String cource_name, String cource_date, String teacher_name) {
-		System.out.println("hahahah");
+	public String updateCource(String cource_name, String cource_date, String teacher_name,int tclass_id) {
 
 		try {
 			JYH_Mid_Date mid = new JYH_Mid_Date();
 			mid.setCource_date(cource_date);
 			mid.setCource_name(cource_name);
 			mid.setTeacher_name(teacher_name);
+			mid.setTclass_id(tclass_id);
 			boolean b = this.tservice.updateCource(mid);
 			return b ? "ok" : "error";
 		} catch (Exception e) {

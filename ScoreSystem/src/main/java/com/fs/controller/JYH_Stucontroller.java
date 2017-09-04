@@ -1,10 +1,19 @@
 package com.fs.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +26,7 @@ import com.fs.po.JYH_Mid_Date;
 import com.fs.po.JYH_Score;
 import com.fs.po.JYH_Stu;
 import com.fs.service.JYH_StuService;
+import org.json.JSONArray;
 
 @Controller
 public class JYH_Stucontroller {
@@ -24,22 +34,50 @@ public class JYH_Stucontroller {
 	 private JYH_StuService stuservice;
     @RequestMapping(value="/addGrade.do")
     @ResponseBody
-    public String saveGrade(int grade, int content_id,int cource_id,int stu_id) {
-    	boolean b = false;
-    	try {
-    	
-			 b = stuservice.addGrade(grade, content_id, cource_id,stu_id);
-			return b ? "ok" : "error";
-		} catch (Exception e) {
+    public String saveGrade(HttpServletRequest request) {
+		InputStream inputStream=null;
+		Map<String,List> map=new HashMap<>();
+		List<Integer> contentList=new ArrayList<>();
+		List<Integer> gradeList=new ArrayList<>();
+		List<Integer> courceList=new ArrayList<>();
+		List<Integer> stuList=new ArrayList<>();
+		try {
+			inputStream=request.getInputStream();
+			String jsonString=IOUtils.toString(inputStream);
+			System.out.println(jsonString);
+			JSONArray jsonArray=new JSONArray(jsonString);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject= (JSONObject) jsonArray.get(i);
+				int content_id = jsonObject.getInt("content_id");
+				int grade = jsonObject.getInt("grade");
+				int cource_id = jsonObject.getInt("cource_id");
+				int stu_id = jsonObject.getInt("stu_id");
+				stuList.add(stu_id);
+				courceList.add(cource_id);
+				gradeList.add(grade);
+				contentList.add(content_id);
+			}
+			map.put("grade",gradeList);
+			map.put("content",contentList);
+			map.put("cource",courceList);
+			map.put("stu",stuList);
+			boolean b = stuservice.addGrade(map);
+			if (b){
+				return "ok";
+			}else {
+				return "no";
+			}
+
+		} catch (IOException e) {
 			e.printStackTrace();
-			return "error";
+			return "no";
 		}
     }
     @RequestMapping(value="/showCource.do")
     @ResponseBody
-    public List<JYH_Mid_Date> showcource (int id) {
+    public List<JYH_Mid_Date> showcource (int tclass_id) {
     	try {
-    		List<JYH_Mid_Date> list = stuservice.selectCource(id);	
+    		List<JYH_Mid_Date> list = stuservice.selectCource(tclass_id);
     		return list;
 		} catch (Exception e) {
 			e.printStackTrace();

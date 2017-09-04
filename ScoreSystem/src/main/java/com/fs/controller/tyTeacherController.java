@@ -125,10 +125,5 @@ public class tyTeacherController {
             return PublicDate.ERROR;
         }
     }
-	@RequestMapping("/showTeacher.do ")
-    @ResponseBody
-    public List<tyTeacher> showTeacher(int id, String name) {
-		List<tyTeacher> list = teacherService.selectTeacher(id, name);
-		return list;
-	}
+
 }

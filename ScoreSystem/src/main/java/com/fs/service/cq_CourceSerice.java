@@ -13,8 +13,8 @@ public class cq_CourceSerice implements cq_CourceServiceSupport {
 	@Autowired
 	private CourceDao courcedao;
 	@Override
-	public List<cq_Cource> getAllCource() {
-		List<cq_Cource>list=courcedao.selectCource(1);
+	public List<cq_Cource> getAllCource(int tclass_id) {
+		List<cq_Cource>list=courcedao.selectCource(tclass_id);
 		return list;
 	}
 	@Override

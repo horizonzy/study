@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface cq_CourceServiceSupport {
-	public List<cq_Cource> getAllCource();
+	public List<cq_Cource> getAllCource(int tclass_id);
 	public List<cq_Teacher> getAllTeacher(String name);
 	public  List<cq_Cource> getAllTime(String courcename, String teachername);
 	public int getId(@Param("courcename2") String courcename2, @Param("teachername2") String teachername2, @Param("date2") String date2);

@@ -5,7 +5,10 @@ import com.fs.service.TeaServiceSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class TeaController {
@@ -26,7 +29,7 @@ public class TeaController {
                 }else if(t.getProcess()==3){
                     mv.addObject("process",3);
                 }
-                mv.setViewName("allgrade.jsp");
+                mv.setViewName("tclass.jsp");
                 return mv;
             }else{
                 mv.setViewName("login.jsp");
@@ -40,5 +43,19 @@ public class TeaController {
             return mv;
         }
     }
+    @RequestMapping("getTeacherByProcess.do")
+    @ResponseBody
+    public List<Tea> getTeacher(){
+        try {
+            List<Tea> list = service.getTeacherByProcess(2);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
 }
 

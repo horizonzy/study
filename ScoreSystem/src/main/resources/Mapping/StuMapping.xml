@@ -23,10 +23,11 @@
     <update id="modifyPwd">
         update  stu set pwd=#{pwd} where num=#{num}
     </update>
-    <select id="selectAllStu" resultMap="StuResultMap">
-        select s.id as s_id,s.name as s_name,sex,num,pwd,t.id as t_id,t.name as t_name,major from stu as s,tclass as t where s.tclass_id=t.id
-        <if test="tclass_id!=null">and s.tclass_id=#{tclass_id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and s.name like concat('%',#{name},'%') </if>
+    <select id="selectAllStuByTclassid" resultMap="StuResultMap">
+        select s.id as s_id,s.name as s_name,sex,num,pwd,t.id as t_id,t.name as t_name,major
+        from stu as s,tclass as t
+        where s.tclass_id=t.id
+        and t.id = #{tclass_id}
         limit #{firstIndex},#{pageSize}
     </select>
     <delete id="deleteOne" parameterType="int">
@@ -46,11 +47,12 @@
         insert into stu (name,sex,num,pwd,tclass_id) values (#{name},#{sex},#{num},#{pwd},#{tclass_id})
     </insert>
     <select id="allStuCount" resultType="java.lang.Integer">
-        select count(id) from stu where 1=1
-        <if test="tclass_id!=null">and tclass_id=#{tclass_id}</if>
-        <if test="name!=null and !name.trim().equals(&quot;&quot;)">and name like concat('%',#{name},'%') </if>
+        select count(id) from stu where 1=1 and tclass_id = #{tclass_id}
     </select>
     <select id="selectStuByNum" resultType="com.fs.po.Stu">
         select * from stu where num=#{num}
+    </select>
+    <select id="selectTclassIdById" resultType="java.lang.Integer">
+        select tclass_id from stu where id = #{id}
     </select>
 </mapper>

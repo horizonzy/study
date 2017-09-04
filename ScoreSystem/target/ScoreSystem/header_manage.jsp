@@ -6,7 +6,6 @@
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="js/PublicData.js"></script>
 	<style type="text/css">
-
 		#myModel {
 			position: absolute;
 			top: 0;
@@ -82,7 +81,7 @@
 	</style>
 	<script type="text/javascript">
 		var process=${requestScope.process};
-
+		var tclass_id=${requestScope.tclass_id};
 
 		var currentPage=1;
 		var allPage=0;
@@ -93,7 +92,7 @@
             $("#admin_bar").hide();
             $("#feedback_bar").hide();
             if(process==2){
-                $("#headerTeacher_bar").show();
+
                 $("#feedback_bar").show();
             }else if(process==3){
                 $("#admin_bar").show();
@@ -101,9 +100,8 @@
             $.ajax({
                 type:"post",
                 dataType:"json",
-                url:"getAllTclass.do",
+                url:"getAllTclass1.do",
                 success:function (tclassList) {
-                    var str="";
                     for(var i=0;i<tclassList.length;i++){
                         var element=document.getElementById("tclass1");
                         var tclass=tclassList[i];
@@ -112,7 +110,6 @@
                         param.innerHTML=tclass.name;
                         element.appendChild(param);
                         var element1=document.getElementById("tclass2");
-                        var tclass1=tclassList[i];
                         var param1=document.createElement("option");
                         param1.value=tclass.id;
                         param1.innerHTML=tclass.name;
@@ -147,8 +144,6 @@
         }
 
 		function getAllStu(flag) {
-			var tclass_name=$("#tclass_name").val();
-			var name=$("#name").val();
             if(flag=="next"){
                 if(currentPage<allPage){
                 currentPage++;
@@ -178,8 +173,7 @@
 				dataType:"json",
 				url:"getAllStu.do",
 				data:{
-				    "tclass_name":tclass_name,
-					"name":name,
+				    "tclass_id":tclass_id,
 					"currentPage":currentPage
 				},
 				success:function (stuList) {
@@ -221,8 +215,7 @@
                 dataType:"text",
                 url:"getAllPage.do",
                 data:{
-                    "tclass_name":tclass_name,
-                    "name":name
+                    "tclass_id":tclass_id
                 },
                 success:function (all_Page) {
 					 allPage=parseInt(all_Page);
@@ -238,8 +231,7 @@
                 dataType:"text",
                 url:"getAllStuCount.do",
                 data:{
-                    "tclass_name":tclass_name,
-                    "name":name
+                    "tclass_id":tclass_id
                 },
                 success:function (all_StuCount) {
 					allStuCount=parseInt(all_StuCount);
@@ -310,16 +302,23 @@
         function deleteBatch() {
 
             var stusCheckBox = $("input[type='checkbox']:checked");
-            var stusid = [];
-            for(var i=0;i<stusCheckBox.length;i++){
-                //使用[]取得元素是是一个domElement元素，取值需要使用.value，
-                //如果使用stusCheckBox.eq(i) 则是一个Obkject元素，就可以使用val()取值
-                //alert(stusCheckBox[i].value);
-                mysendstu_id = {};
-                mysendstu_id['stu_id'] = stusCheckBox[i].value;
-                stusid[i] = mysendstu_id;
-            }
-            //alert(booksid);
+//            var stusid = [];
+//            for(var i=0;i<stusCheckBox.length;i++){
+//                //使用[]取得元素是是一个domElement元素，取值需要使用.value，
+//                //如果使用stusCheckBox.eq(i) 则是一个Obkject元素，就可以使用val()取值
+//                //alert(stusCheckBox[i].value);
+//                mysendstu_id = {};
+//                mysendstu_id['stu_id'] = stusCheckBox[i].value;
+//                stusid[i] = mysendstu_id;
+//            }
+			var stusid = [];
+			for(var i=0;i<stusCheckBox.length;i++){
+
+			    mysendstu_id={};
+			    mysendstu_id['stu_id']=stusCheckBox[i].value;
+			    stusid[i]=mysendstu_id;
+			}
+
             var confirmdel= confirm('确认要删除吗?');
             if(confirmdel){
                 //开始请求删除
@@ -327,6 +326,7 @@
                     url:'deleteBatch.do',
                     data:JSON.stringify(stusid),
                     type:'post',
+					dataType:"text",
                     success:function(res){
                         alert("删除成功");
                         getAllStu();
@@ -382,21 +382,6 @@
 	<div class="right">
 		<div class="rightCont">
 			<p class="g_title fix"><a class="btn03" href="javascript:showModel1()">新 增</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03" href="javascript:deleteBatch()">删 除</a></p>
-			<table class="tab1">
-				<tbody>
-				<tr>
-					<td width="90" align="right">班级：</td>
-					<td>
-						<input id="tclass_name" name="tclass_name" type="text" class="allInput" value=""/>
-					</td>
-					<td width="90" align="right">姓名：</td>
-					<td>
-						<input id="name" name="name" type="text" class="allInput" value=""/>
-					</td>
-					<td width="85" align="right"><input type="button" class="tabSub" value="查 询"  onclick="getAllStu()"/></td>
-				</tr>
-				</tbody>
-			</table>
 			<div class="zixun fix">
 				<table class="tab2" width="100%">
 					<tbody id="t_body1">
@@ -569,7 +554,7 @@
 			</tr>
 			<tr align="center">
 				<td colspan="2"><input type="button" name="button" id="button"
-									   value="修改" onclick="insertStu()" />
+									   value="增加" onclick="insertStu()" />
 					<input type="button" name="button" id="button"
 						   value="取消" onclick="hideModel1();" />
 				</td>
@@ -580,22 +565,19 @@
 <div  class="menu"  style="margin: auto;width: 38%;">
 	<ul>
 		<li>
-			<a href="toFeedback.do?process=${requestScope.process}" id="feedback_bar">学生反馈</a>
+			<a href='toFeedback.do?tclass_id=${requestScope.tclass_id}&process=${requestScope.process}' id='feedback_bar'>学生反馈</a>
 		</li>
 		<li>
-			<a href="toAllgrade.do?process=${requestScope.process}">各项统计</a>
+			<a href='toAllgrade.do?tclass_id=${requestScope.tclass_id}&process=${requestScope.process}'>各项统计</a>
 		</li>
 		<li >
-			<a href="toPercent.do?process=${requestScope.process}">百分比统计</a>
+			<a href='toPercent.do?tclass_id=${requestScope.tclass_id}&process=${requestScope.process}'>百分比统计</a>
 		</li>
 		<li>
-			<a href="toAdvice.do?process=${requestScope.process}">教师反馈</a>
+			<a href='toAdvice.do?tclass_id=${requestScope.tclass_id}&process=${requestScope.process}'>教师反馈</a>
 		</li>
 		<li >
-			<a href="toHeader_manage.do?process=${requestScope.process}" id="headerTeacher_bar">班主任管理</a>
-		</li>
-		<li >
-			<a href="toAdmin_manage.do?process=${requestScope.process}" id="admin_bar">管理员管理</a>
+			<a href='toAdmin_manage.do?tclass_id=${requestScope.tclass_id}&process=${requestScope.process}' id='admin_bar'>管理员管理</a>
 		</li>
 	</ul>
 </div>

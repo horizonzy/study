@@ -2,7 +2,6 @@
 $(document).ready(function() {
     showCource();
     getNumById();
-
     showKind();
 });
 function getNumById() {
@@ -178,31 +177,32 @@ function getContent_id(cource_id) {
         dataType : "json",
 
         success : function(ContentList) {
-
+            var data=[];
             for (var i = 0; i < ContentList.length; i++) {
                 var id=ContentList[i].c_id;
                 var grade =$("#"+id+"").val();
-                goPost(id,grade,cource_id,stu_id);
+                var object={};
+                object['content_id']=id;
+                object['grade']=grade;
+                object['cource_id']=cource_id;
+                object['stu_id']=stu_id;
+                data[i]=object;
             }
+            goPost(data);
         },
         error : function(e) {
             alert("得到id失败");
         }
     });
 }
-function goPost(id,grade,cource_id,stu_id) {
+function goPost(data) {
 
     $.ajax({
         //async:false,
         type : "post",
         url : "addGrade.do",
         dataType : "text",
-        data : {
-            "cource_id" : cource_id,
-            "content_id": id,
-            "grade":grade,
-            "stu_id":stu_id
-        },
+        data : JSON.stringify(data),
         success : function() {
 
         },

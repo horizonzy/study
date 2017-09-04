@@ -60,10 +60,10 @@ private tyContentDao contentDao;
     }
 
 	@Override
-	public List<tyContent> selectContent(int id, String name) {
-		 List<tyContent>  list = contentDao.selectContent(id, name);
-	     return list;
-
+	public int getContentIdByName(String name) {
+		int id = contentDao.selectContentIdByName(name);
+		return id;
 	}
+
 
 }

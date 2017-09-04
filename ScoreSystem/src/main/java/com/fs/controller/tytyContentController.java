@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fs.service.tyKindServiceSupport;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,8 @@ public class tytyContentController {
 	@Autowired
 	private tyContentServiceSupport contentService;
 
+	@Autowired
+	private tyKindServiceSupport kindServiceSupport;
 	@RequestMapping("/showAllContent.do")
 	@ResponseBody
 	public List<tyContent> showAllContent(int currentPage) {
@@ -63,10 +66,13 @@ public class tytyContentController {
 	}
 	@RequestMapping("/saveContent.do")
 	@ResponseBody
-	public String saveContent(String name,int kind_id) {
+	public String saveContent(String name,String nick_name,String k_name) {
+		System.out.println("name="+name+"nick_name="+nick_name+"k_name="+k_name);
 		boolean b = false;
+		int kind_id = kindServiceSupport.getKindIdByNickName(k_name);
 		try {
 			tyContent content = new tyContent();
+			content.setC_name(nick_name);
 			content.setKind_id(kind_id);
 			content.setName(name);
 			b =contentService.save2(content);
@@ -78,13 +84,15 @@ public class tytyContentController {
 	}
 	@RequestMapping("/updateMyContent.do")
 	@ResponseBody
-	public String updateMyContent(int id, String name,int kind_id) {
+	public String updateMyContent(int id, String name,String nick_name,String k_name) {
 		if(name.trim().length()==0) {
 			return "nameIsNull";
 		}
+		int kind_id = kindServiceSupport.getKindIdByNickName(k_name);
 		try {
 			tyContent content = new tyContent();
 			content.setId(id);
+			content.setC_name(nick_name);
 			content.setName(name);
 			content.setKind_id(kind_id);
 			boolean b = contentService.updateContent(content);
@@ -121,10 +129,5 @@ public class tytyContentController {
             return PublicDate.ERROR;
         }
     }
-	@RequestMapping("/showContent.do ")
-    @ResponseBody
-    public List<tyContent> showContent(int id, String name) {
-		List<tyContent> list = contentService.selectContent(id, name);
-		return list;
-	}
+
 }

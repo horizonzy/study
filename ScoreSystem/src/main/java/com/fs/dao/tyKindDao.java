@@ -13,5 +13,7 @@ public interface tyKindDao {
 	public int insertKind(tyKind kind);
 	public int updateKind(tyKind kind);
 	public int deleteBatch(List<Integer> list);
-	public List<tyKind> selectKind(@Param("id") int id, @Param("name") String name);
+	int getKindIdByNickName(String nick_name);
+	List<String> selectAllNickName();
+
 }

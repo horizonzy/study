@@ -20,8 +20,8 @@ public class ZGFCourceController {
 	
 	@RequestMapping(value="selectallCource.do")
 	@ResponseBody
-	public List<ZGFCource> selsectallCourceController(){
-		List<ZGFCource> list=	courcecontroller.selsectallcourceService();
+	public List<ZGFCource> selsectallCourceController(int tclass_id){
+		List<ZGFCource> list=	courcecontroller.selsectallcourceService(tclass_id);
 		return list;
 	}
 	

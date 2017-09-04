@@ -60,10 +60,10 @@ private tyTeacherDao teacherDao;
     }
 
 	@Override
-	public List<tyTeacher> selectTeacher(int id, String name) {
-		 List<tyTeacher>  list = teacherDao.selectTeacher(id, name);
-	     return list;
-
+	public int getTeacherIdByName(String name) {
+		int id = teacherDao.selectTeacherIdByName(name);
+		return id;
 	}
+
 
 }

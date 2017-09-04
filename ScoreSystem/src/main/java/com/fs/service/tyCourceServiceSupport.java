@@ -13,5 +13,5 @@ public interface tyCourceServiceSupport {
 	public boolean save5(tyCource cource);
 	public boolean updateCource(tyCource cource);
 	public boolean deleteBatch5(List<Integer> list);
-	public List<tyCource> selectCource(int id, String name);
+
 }

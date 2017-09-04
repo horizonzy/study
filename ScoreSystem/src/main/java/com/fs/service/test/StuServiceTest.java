@@ -1,12 +1,15 @@
 package com.fs.service.test;
 
+import com.fs.po.tyContent;
 import com.fs.service.StuServiceSupport;
 import com.fs.service.TclassServiceSupport;
 import com.fs.po.Stu;
+import com.fs.service.tyContentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -18,7 +21,8 @@ public class StuServiceTest {
     private StuServiceSupport service;
     @Autowired
     private TclassServiceSupport tclassService;
-
+    @Autowired
+    private tyContentService  tyContentService;
     public void getPwdByNumTeste(){
         boolean b = service.checkNumAndPwd("xiaoming","123456");
         System.out.println(b);
@@ -37,9 +41,8 @@ public class StuServiceTest {
 
     @Test
     public void getAllStuTest(){
-        String name=null;
-        int tclass_id = tclassService.getTclassidByName("一班");
-        List<Stu> stuList = service.getAllStu(null,name,1);
+
+        List<Stu> stuList = service.getAllStu(1,1);
         for (Stu s :
                 stuList) {
             System.out.println(s);
@@ -57,13 +60,17 @@ public class StuServiceTest {
     }
     @Test
     public void allStuTest(){
-        int num = service.getAllStuCount(null,"小");
+        int num = service.getAllStuCount(1);
         System.out.println(num);
     }
 
     public void allPageTest(){
-        int allPage=service.getAllPage(null,"小");
+        int allPage=service.getAllPage(1);
         System.out.println(allPage);
+    }
+    @Test
+    public void addContent(){
+
     }
 
 }
